@@ -18,9 +18,13 @@
                                 <a class="btn btn-sm btn-outline-primary me-1" title="Editar" href="{{ route('contacts.edit', $contact->id) }}">
                                     <i class="ri-pencil-line"></i>
                                 </a>
-                                <button class="btn btn-sm btn-outline-danger" title="Apagar" href="{{ route('contacts.delete', $contact->id) }}">
-                                    <i class="ri-delete-bin-line"></i>
-                                </button>
+                                <form method="POST" action="{{ route('contacts.delete', $contact->id) }}" onsubmit="return confirm('Tem certeza que deseja apagar este contacto?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger" title="Apagar" href="{{ route('contacts.delete', $contact->id) }}">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </button>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title mb-2">
@@ -30,7 +34,7 @@
                                     <i class="ri-mail-line"></i> {{ $contact->email }}
                                 </p>
                                 <p class="mb-0">
-                                    <i class="ri-phone-line"></i>{{ $contact->contact }}
+                                    <i class="ri-phone-line"></i>{{ $contact->phone_number }}
                                 </p>
                             </div>
                         </div>

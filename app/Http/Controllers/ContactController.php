@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactUpdateRequest;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -56,14 +58,32 @@ class ContactController extends Controller
     public function edit(string $id)
     {
         //
+        $contact = $this->contactRepository->getById($id);
+
+        return view('pages.contacts.edit')
+            ->with('contact', $contact);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ContactUpdateRequest $request, string $id)
     {
         //
+        try {
+            $validatedData = $request->validated();
+            $this->contactRepository->update($id, $validatedData);
+
+            return redirect()->route('contacts.index')
+                ->with('success', 'Contacto atualizado com sucesso!');
+
+        }catch(\Exception $e) {
+            Log::error("Update Contact Error | ID: {$id} | MESSAGE: ". $e->getMessage());
+
+            return back()->withErrors([
+                'message' => "Não foi possível atualizar o contacto, por favor tente novamente.". $e->getMessage()
+            ])->withInput();
+        }
     }
 
     /**
@@ -72,5 +92,6 @@ class ContactController extends Controller
     public function destroy(string $id)
     {
         //
+
     }
 }

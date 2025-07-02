@@ -21,6 +21,6 @@ Route::get('/', function () {
 
 Route::prefix('contacts')->name('contacts.')->group(function () {
     Route::get('/', [ContactController::class, 'index'])->name('index');
-    Route::get('/{id}/edit', [ContactController::class, 'index'])->name('edit');
-    Route::get('/{id}/delete', [ContactController::class, 'index'])->name('delete');
+    Route::get('/{id}/edit', [ContactController::class, 'edit'])->name('edit');
+    Route::patch('/{id}', [ContactController::class, 'update'])->name('update');
 });
