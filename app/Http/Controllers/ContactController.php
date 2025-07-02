@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactStoreRequest;
 use App\Http\Requests\ContactUpdateRequest;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ContactController extends Controller
     public function index()
     {
         //
-        $contacts = $this->contactRepository->getAll();
+        $contacts = $this->contactRepository->getAllWithPaginate(12, 'name');
 
         return view('pages.contacts.index')
             ->with('contacts', $contacts);
@@ -34,14 +35,29 @@ class ContactController extends Controller
     public function create()
     {
         //
+        return view('pages.contacts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ContactStoreRequest $request)
     {
         //
+        try {
+            $validatedData = $request->validated();
+            $this->contactRepository->create($validatedData);
+
+            return redirect()->route('contacts.index')
+                ->with('success', 'Contacto atualizado com sucesso!');
+
+        }catch(\Exception $e) {
+            Log::error("Create Contact Error | MESSAGE: ". $e->getMessage());
+
+            return back()->withErrors([
+                'message' => "Não foi possível criar o contacto, por favor tente novamente."
+            ])->withInput();
+        }
     }
 
     /**
@@ -81,7 +97,7 @@ class ContactController extends Controller
             Log::error("Update Contact Error | ID: {$id} | MESSAGE: ". $e->getMessage());
 
             return back()->withErrors([
-                'message' => "Não foi possível atualizar o contacto, por favor tente novamente.". $e->getMessage()
+                'message' => "Não foi possível atualizar o contacto, por favor tente novamente."
             ])->withInput();
         }
     }

@@ -19,14 +19,23 @@ class ContactRepository
         return $this->contact->all();
     }
 
-    public function getAllWithPaginate(int $itemsPerPage)
+    public function getAllWithPaginate(int $itemsPerPage, string $orderBy = 'id', string $orderDirection = 'asc')
     {
-        return $this->contact->paginate($itemsPerPage);
+        return $this->contact
+            ->orderBy($orderBy, $orderDirection)
+            ->paginate($itemsPerPage);
     }
 
     public function getById(int $id)
     {
         return $this->contact->findOrFail($id);
+    }
+
+    public function create(array $data)
+    {
+        return DB::transaction(function () use ($data) {
+            return $this->contact->create($data);
+        });
     }
 
     public function update(int $id, array $data)
