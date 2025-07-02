@@ -92,6 +92,9 @@ class ContactController extends Controller
     public function destroy(string $id)
     {
         //
+        $this->contactRepository->delete($id);
 
+        return redirect()->route('contacts.index')
+            ->with('success', 'Contacto removido com sucesso!');
     }
 }

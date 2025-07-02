@@ -40,6 +40,8 @@ class ContactRepository
 
     public function delete(int $id)
     {
-
+        return DB::transaction(function () use ($id) {
+            $this->contact->findOrFail($id)->delete();
+        });
     }
 }
