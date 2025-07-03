@@ -5,9 +5,22 @@
         <div class="container py-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold">Lista de Contactos</h2>
-                <a class="btn btn-primary" href="{{ route('contacts.create') }}">
-                    <i class="ri-user-add-line me-2"></i> Novo Contacto
-                </a>
+                @if(auth()->check())
+                    <a class="btn btn-primary" href="{{ route('contacts.create') }}">
+                        <i class="ri-user-add-line me-2"></i> Novo Contacto
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        @method('POST')
+                        <button class="btn btn-sm btn-outline-danger" title="Terminar sessão">
+                            <i class="ri-logout-box-line"></i>
+                        </button>
+                    </form>
+                @else
+                    <a class="btn btn-primary" href="{{ route('login') }}">
+                        <i class="ri-lock-2-line me-2"></i> Iniciar sessão
+                    </a>
+                @endif
             </div>
 
             @if (session('success'))
@@ -28,7 +41,7 @@
                                     <form method="POST" action="{{ route('contacts.delete', $contact->id) }}" onsubmit="return confirm('Tem certeza que deseja apagar este contacto?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger" title="Apagar" href="{{ route('contacts.delete', $contact->id) }}">
+                                        <button class="btn btn-sm btn-outline-danger" title="Apagar">
                                             <i class="ri-delete-bin-line"></i>
                                         </button>
                                     </form>
