@@ -35,16 +35,18 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="card contact-card border-0 shadow-sm">
                                 <div class="position-absolute top-0 end-0 p-2">
-                                    <a class="btn btn-sm btn-outline-primary me-1" title="Editar" href="{{ route('contacts.edit', $contact->id) }}">
-                                        <i class="ri-pencil-line"></i>
-                                    </a>
-                                    <form method="POST" action="{{ route('contacts.delete', $contact->id) }}" onsubmit="return confirm('Tem certeza que deseja apagar este contacto?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger" title="Apagar">
-                                            <i class="ri-delete-bin-line"></i>
-                                        </button>
-                                    </form>
+                                    @if(auth()->check())
+                                        <a class="btn btn-sm btn-outline-primary me-1" title="Editar" href="{{ route('contacts.edit', $contact->id) }}">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                        <form method="POST" action="{{ route('contacts.delete', $contact->id) }}" onsubmit="return confirm('Tem certeza que deseja apagar este contacto?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-outline-danger" title="Apagar">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title mb-2">
