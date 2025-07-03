@@ -1,0 +1,85 @@
+body, html {
+    height: 100%;
+    background: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.login-wrapper {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.login-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: flex;
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+}
+.login-image {
+    flex: 1.2;
+    background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80') no-repeat center center;
+    background-size: cover;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.login-form {
+    flex: 1;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login-form h2 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+.form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+}
+.btn-primary {
+    background: #4f46e5;
+    border: none;
+    font-weight: 600;
+    padding: 12px;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+}
+.btn-primary:hover {
+    background-color: #3730a3;
+}
+.input-group-text {
+    background: #4f46e5;
+    border: none;
+    color: white;
+}
+.form-icon {
+    color: #4f46e5;
+}
+.text-center a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+        border-radius: 15px;
+    }
+    .login-image {
+        height: 200px;
+        border-radius: 15px 15px 0 0;
+    }
+    .login-form {
+        padding: 30px 20px;
+    }
+}

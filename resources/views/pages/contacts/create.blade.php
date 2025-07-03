@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="form-container">
-            <h3 class="mb-4 text-center">
+            <h3 class="mb-4 mt-5 text-center">
                 <i class="ri-add-line me-2"></i> Criar Contacto
             </h3>
 
